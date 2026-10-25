@@ -1,0 +1,24 @@
+[Unit]
+Description=DeskcommCRM Lab (client.cafe.academy) — avaliacao de UX de inbox, NAO e producao
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=nodeuser
+Group=nodeuser
+WorkingDirectory=/app/nexro/nexro.ai/client.cafe.academy/app
+Environment="NODE_ENV=production"
+Environment="PORT=3212"
+Environment="HOSTNAME=127.0.0.1"
+Environment="NEXT_TELEMETRY_DISABLED=1"
+Environment="PATH=/opt/node/22/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/opt/node/22/bin/node current/server.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=client-cafe-academy-app
+
+[Install]
+WantedBy=multi-user.target

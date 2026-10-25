@@ -206,3 +206,9 @@ caddy-sites/*
 
 # Curso ilustrado — fotos e site gerados (curso/capturar.ts, curso/montar.ts)
 curso/saida/
+
+# nexro-ops (releases imutáveis + link current; ver /app/nexro/nexro.ai/ops/README.md)
+/releases/
+/current
+/current.tmp
+/shared/

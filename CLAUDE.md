@@ -237,6 +237,15 @@ DeskcommCRM é um sistema operacional de vendas open source com agentes de IA na
 
 ---
 
+## Instância no servidor da NEXRO (`client.cafe.academy`, desde 10/10/2026)
+
+A cópia que roda NESTE servidor (`client.cafe.academy-app.service`, porta 3212,
+`https://client.cafe.academy`) não é Docker: é o standalone do Next rodando de
+`releases/<id>/` via link `current`. **`pnpm build` + `systemctl restart` NÃO publica**
+(sobe o release velho). Publicar = `scripts/ops/deploy.sh` (`--rollback`, `--list`),
+atalho de `/app/nexro/nexro.ai/ops/bin/deploy-next.sh client-cafe-academy`; ver
+`/app/nexro/nexro.ai/ops/README.md`. A seção abaixo vale para a VPS de cliente.
+
 ## Deploy em produção (NÃO NEGOCIÁVEL)
 
 **Numa VPS que já tem proxy reverso próprio (Hostinger, Coolify, Dokploy…), todo
