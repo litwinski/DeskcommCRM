@@ -181,3 +181,9 @@ __pycache__/
 
 # Runtime do instalador single-server: Supabase self-hosted, credenciais e dados.
 .runtime/
+
+# nexro-ops (releases imutáveis + link current; ver /app/nexro/nexro.ai/ops/README.md)
+/releases/
+/current
+/current.tmp
+/shared/
