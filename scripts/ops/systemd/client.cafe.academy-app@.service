@@ -1,0 +1,30 @@
+[Unit]
+Description=DeskcommCRM Lab (client.cafe.academy), cor %i — avaliacao de UX de inbox, NAO e producao
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=nodeuser
+Group=nodeuser
+# Blue/green desde 26/10/2026: a porta da cor vem de shared/env/%i.env, gravado pelo deploy do nexro-ops
+# (21110 blue, 21111 green; nexro-docs/regras/portas.md, PP 11 camada 1). O legado era a 3212.
+# readlink -f fixa o release no start: trocar current-%i depois não afeta este processo.
+WorkingDirectory=/app/nexro/nexro.ai/client.cafe.academy/app
+Environment="NODE_ENV=production"
+Environment="NEXT_TELEMETRY_DISABLED=1"
+Environment="PATH=/opt/node/22/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+# HOSTNAME=localhost (+ ipv4first) escuta só em 127.0.0.1; com 127.0.0.1 o Next monta origens diferentes no
+# roteador e no middleware e rewrite interno vira 500 (nexro-docs/regras/portas.md, 25/10/2026).
+Environment="HOSTNAME=localhost"
+Environment="NODE_OPTIONS=--dns-result-order=ipv4first"
+EnvironmentFile=/app/nexro/nexro.ai/client.cafe.academy/app/shared/env/%i.env
+ExecStart=/bin/sh -c 'exec /opt/node/22/bin/node "$(readlink -f current-%i)/server.js"'
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=client-cafe-academy-app
+
+[Install]
+WantedBy=multi-user.target
